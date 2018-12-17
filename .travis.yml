@@ -1,0 +1,34 @@
+language: node_js
+
+node_js:
+  - 8.11.4
+
+cache: npm
+
+before_install:
+  - npm i -g npm@latest
+
+install:
+  - npm install
+
+before_deploy:
+  - npm run build
+
+jobs:
+  include:
+    - stage: inspect
+      script: npm run inspect
+    - stage: build
+      script: npm run build
+    - stage: deploy
+      script: skip
+      deploy:
+        provider: script
+        script: npx netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --dir ./dist --prod
+        skip_cleanup: true
+
+
+stages:
+  - inspect
+  - build
+  - deploy

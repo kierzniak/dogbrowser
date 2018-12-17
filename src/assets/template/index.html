@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>DogBrowser - Last place where you will be looking for dog photos</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="/img/icons/favicon.png">
+    <link rel="shortcut icon" sizes="196x196" href="/img/icons/favicon.png">
+
+    <!-- iPhone -->
+    <link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png">
+    <!-- iPhone retina -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon-180.png">
+    <!-- iPad -->
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/icons/apple-touch-icon-152.png">
+    <!-- iPad retina -->
+    <link rel="apple-touch-icon" sizes="167x167" href="/img/icons/apple-touch-icon-180.png">
+
+    <!-- Chrome -->
+    <link rel="icon" sizes="192x192" href="/img/icons/google-192.png">
+    <link rel="icon" sizes="128x128" href="/img/icons/google-128.png">
+
+    <link rel="manifest" href="/manifest.json">
+
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      WebFontConfig = {
+        google: {
+          families: ['Josefin Sans:400,700']
+        }
+      };
+
+      (function(d) {
+        var wf = d.createElement('script'), s = d.scripts[0];
+        wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js';
+        s.parentNode.insertBefore(wf, s);
+      })(document);
+    </script>
+
+    <% if (process.env.SW === "true") { %>
+    <script>
+      // Check that service workers are registered
+      if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
+    <% } else { %>
+      <script>
+
+        // Check that service workers are registered
+        if ('serviceWorker' in navigator) {
+
+          // Uninstall all servcie workers in development mode
+          navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for( let registration of registrations) {
+              registration.unregister()
+            }
+          });
+        }
+      </script>
+    <% } %>
+  </body>
+</html>

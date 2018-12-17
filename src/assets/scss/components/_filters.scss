@@ -1,0 +1,58 @@
+.dropdown {
+  .form-check {
+    width: 360px;
+  }
+}
+
+.dropdown-toggle {
+  max-width: 360px;
+}
+
+.filters {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter {
+  margin-right: 0.5rem;
+
+  .dropdown {
+    position: static;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.filter-checkbox {
+  button {
+    overflow: hidden;
+    max-width: 360px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.vdp-datepicker__clear-button {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  cursor: pointer;
+}
+
+@include media-breakpoint-up(sm) {
+  .filter {
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      width: auto;
+    }
+  }
+}

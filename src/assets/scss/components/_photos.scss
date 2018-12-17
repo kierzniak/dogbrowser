@@ -1,0 +1,102 @@
+.photos {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.photo {
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.photo-figure {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  margin-bottom: 0;
+  cursor: pointer;
+  text-align: center;
+  background: #343a40;
+
+  h2 {
+    font-weight: 300;
+    text-align: left;
+    word-spacing: -0.15em;
+    color: #fff;
+
+    span {
+      font-weight: 800;
+    }
+  }
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  p {
+    font-size: 68.5%;
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    padding: 0 1em;
+    transition: opacity 0.35s;
+    text-align: right;
+    letter-spacing: 1px;
+    opacity: 0;
+    border-right: 4px solid #fff;
+  }
+
+  img {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    transition: opacity 0.35s, transform 0.35s;
+    transform: scale3d(1.05, 1.05, 1);
+    opacity: 0.5;
+  }
+
+  &:hover {
+    img {
+      transform: scale3d(1, 1, 1);
+      opacity: 0.3;
+    }
+
+    p {
+      transition-delay: 0.1s;
+      opacity: 1;
+    }
+  }
+
+  .photo-figcaption {
+    font-size: 1.25em;
+    padding: 2em;
+    text-transform: uppercase;
+    color: #fff;
+    backface-visibility: hidden;
+
+    &,
+    > a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    > a {
+      font-size: 0;
+      z-index: 1000;
+      white-space: nowrap;
+      text-indent: 200%;
+      opacity: 0;
+    }
+
+    &::before,
+    &::after {
+      pointer-events: none;
+    }
+  }
+}

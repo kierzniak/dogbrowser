@@ -1,0 +1,42 @@
+.navbar-brand {
+  height: 18px;
+  padding: 0;
+}
+
+.navbar-nav {
+  flex-direction: row;
+
+  .nav-link {
+    padding: 0.5rem;
+  }
+}
+
+.form-inline {
+  position: relative;
+}
+
+.form-search {
+  width: 100%;
+
+  .form-search__input {
+    width: calc(100% - 76px);
+  }
+}
+
+.close {
+  position: absolute;
+  top: calc(50% - 2px);
+  right: 82px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+@include media-breakpoint-up(sm) {
+  .form-search {
+    width: auto;
+
+    .form-search__input {
+      width: 180px;
+    }
+  }
+}
