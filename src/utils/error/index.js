@@ -6,7 +6,7 @@ import config from "../../config";
 import * as Handlers from "./handlers.js";
 
 window.onerror = Handlers.error;
-window.addEventListener("unhandledrejection", Handlers.promise);
+window.onunhandledrejection = Handlers.promise;
 
 Vue.config.errorHandler = Handlers.vueError;
 Vue.config.warnHandler = Handlers.vueWarn;
