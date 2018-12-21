@@ -9,9 +9,9 @@
 /* global google, MarkerClusterer */
 
 import notie from "notie";
+import $script from "scriptjs";
 
 import config from "../../config";
-import Scripts from "../../utils/scripts.js";
 import NetworkError from "../../errors/NetworkError";
 
 import LoaderElement from "../UI/Element/LoaderElement.vue";
@@ -124,7 +124,7 @@ export default {
 
     try {
       // Append google maps scripts dynamicly
-      await Promise.all([this.loadGoogleMapsScript(), this.loadGoogleMapsClusterScript()]);
+      await this.loadGoogleMapsAssets();
     } catch {
       /**
        * Show nice notification to user that something is wrong
@@ -135,9 +135,6 @@ export default {
         text: "Sorry but we are unable to load map. Please try again later.",
         position: "bottom"
       });
-
-      removeElement(document.getElementById("gmaps"));
-      removeElement(document.getElementById("gmapsCluster"));
 
       throw new NetworkError("Unable to load google maps scripts.");
     }
@@ -315,57 +312,11 @@ export default {
       google.maps.event.addListener(this.map, "idle", this.bindedHandleMapIdle);
     },
 
-    /**
-     * Load Google Maps API js script.
-     *
-     * @returns {void} Returns nothing.
-     */
-    loadGoogleMapsScript() {
-      let gmapScript;
-      let gmapId = "gmaps";
-
-      // Do not load script if it already exists
-      if (document.getElementById(gmapId) !== null) {
-        return;
-      }
-
-      gmapScript = new Scripts({ src: config.gmapSrc + config.gmapKey, id: gmapId });
-      return gmapScript.render();
-    },
-
-    /**
-     * Load Google Maps Cluster js script.
-     *
-     * @returns {void} Returns nothing.
-     */
-    loadGoogleMapsClusterScript() {
-      let gmapClusterScript;
-      let gmapClusterId = "gmapsCluster";
-
-      // Do not load script if it already exists.
-      if (document.getElementById(gmapClusterId) !== null) {
-        return;
-      }
-
-      gmapClusterScript = new Scripts({ src: config.gmapClusterSrc, id: gmapClusterId });
-      return gmapClusterScript.render();
+    loadGoogleMapsAssets() {
+      return new Promise((resolve, reject) =>
+        $script([config.gmapSrc + config.gmapKey, config.gmapClusterSrc], resolve, reject)
+      );
     }
   }
 };
-
-/**
- * Remove HTML element from document.
- *
- * @param {HTMLElement} el - DOM element.
- *
- * @returns {void} Returns nothing.
- */
-function removeElement(el) {
-  let parent;
-
-  if (el && el.length > 0) {
-    parent = el.parentNode;
-    parent.removeChild(el);
-  }
-}
 </script>
